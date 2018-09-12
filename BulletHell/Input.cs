@@ -5,7 +5,7 @@ using Microsoft.Xna.Framework.Input;
 
 namespace BulletHell
 {
-    public static class Input
+    public class Input : GameComponent
     {
         public static KeyboardState LastKeyState { get; private set; }
         public static KeyboardState CurrentKeyState { get; private set; }
@@ -15,7 +15,12 @@ namespace BulletHell
         public static Vector2 MouseWorldPosition { get; private set; }
         public static Vector2 MouseScreenPosition { get; private set; }
 
-        public static void Update()
+        public Input(Game game) : base(game)
+        {
+            base.UpdateOrder = Main.EXEC_ORDER_INPUT;
+        }
+
+        public override void Update(GameTime time)
         {
             LastKeyState = CurrentKeyState;
             CurrentKeyState = Keyboard.GetState();
@@ -28,6 +33,7 @@ namespace BulletHell
             // The world position is found by translating screen space using the camera matrix.
             MouseWorldPosition = Vector2.Transform(MouseScreenPosition, Matrix.Invert(Main.Camera.GetMatrix()));
 
+            Log.Debug("Input");
         }
 
         public static bool KeyDown(Keys key)

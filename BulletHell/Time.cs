@@ -30,6 +30,7 @@ namespace BulletHell
 
         public Time(Game game) : base(game)
         {
+            UpdateOrder = Main.EXEC_ORDER_TIME;
         }
 
         public override void Initialize()
@@ -42,6 +43,7 @@ namespace BulletHell
 
         public override void Update(GameTime gameTime)
         {
+            Log.Debug("Time");
             // Calculate elapsed time.
             if (!hasRun)
             {

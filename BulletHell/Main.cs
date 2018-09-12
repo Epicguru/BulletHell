@@ -7,6 +7,10 @@ namespace BulletHell
 {
     public class Main : Game
     {
+        public const int EXEC_ORDER_PLAYER = 0;
+        public const int EXEC_ORDER_TIME = -99;
+        public const int EXEC_ORDER_INPUT = -100;
+
         public static Texture2D Pixel;
         public static Color BackgroundColour = Color.Black;
         public static GraphicsDeviceManager Graphics;
@@ -31,6 +35,7 @@ namespace BulletHell
             Camera = new Camera();
 
             // Add base components here...
+            base.Components.Add(new Input(this));
             base.Components.Add(new Time(this));
             base.Components.Add(new Player(this));
 
