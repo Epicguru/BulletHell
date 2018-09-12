@@ -22,6 +22,7 @@ namespace BulletHell
         public Rectangle WorldViewBounds { get; private set; }
         private float _zoom = 1f;
         private Matrix _transform;
+        private Matrix _inverse;
 
         public void UpdateMatrix(GraphicsDevice graphicsDevice)
         {
@@ -41,6 +42,14 @@ namespace BulletHell
             r.Width = (int)Math.Ceiling(bottomRight.X - topLeft.X);
             r.Height = (int)Math.Ceiling(bottomRight.Y - topLeft.Y);
             WorldViewBounds = r;
+
+            // Inverted.
+            _inverse = Matrix.Invert(Main.Camera.GetMatrix());
+        }
+
+        public Vector2 ScreenToWorldPosition(Vector2 screenPos)
+        {
+            return Vector2.Transform(screenPos, _inverse);
         }
 
         public Matrix GetMatrix()

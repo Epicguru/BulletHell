@@ -31,9 +31,7 @@ namespace BulletHell
             MouseScreenPosition = CurrentMouseState.Position.ToVector2();
 
             // The world position is found by translating screen space using the camera matrix.
-            MouseWorldPosition = Vector2.Transform(MouseScreenPosition, Matrix.Invert(Main.Camera.GetMatrix()));
-
-            Log.Debug("Input");
+            MouseWorldPosition = Main.Camera.ScreenToWorldPosition(MouseScreenPosition);
         }
 
         public static bool KeyDown(Keys key)

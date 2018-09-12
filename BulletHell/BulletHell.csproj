@@ -46,6 +46,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Arena\GameObject.cs" />
+    <Compile Include="Arena\Title.cs" />
     <Compile Include="Camera.cs" />
     <Compile Include="Input.cs" />
     <Compile Include="Log.cs" />

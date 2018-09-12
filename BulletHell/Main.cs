@@ -7,11 +7,13 @@ namespace BulletHell
 {
     public class Main : Game
     {
+        public const int EXEC_ORDER_TITLE = 100;
         public const int EXEC_ORDER_PLAYER = 0;
         public const int EXEC_ORDER_TIME = -99;
         public const int EXEC_ORDER_INPUT = -100;
 
         public static Texture2D Pixel;
+        public static SpriteFont TitleFont;
         public static Color BackgroundColour = Color.Black;
         public static GraphicsDeviceManager Graphics;
         public static SpriteBatch SpriteBatch;
@@ -38,6 +40,7 @@ namespace BulletHell
             base.Components.Add(new Input(this));
             base.Components.Add(new Time(this));
             base.Components.Add(new Player(this));
+            base.Components.Add(new Title(this));
 
             // Initialize all components.
             base.Initialize();
@@ -56,6 +59,9 @@ namespace BulletHell
 
             // Load pixel texture.
             Pixel = Content.Load<Texture2D>("Pixel");
+
+            // Load title font.
+            TitleFont = Content.Load<SpriteFont>("Title");
 
             // End logging.
             Log.EndTimeLog();

@@ -43,7 +43,6 @@ namespace BulletHell
 
         public override void Update(GameTime gameTime)
         {
-            Log.Debug("Time");
             // Calculate elapsed time.
             if (!hasRun)
             {

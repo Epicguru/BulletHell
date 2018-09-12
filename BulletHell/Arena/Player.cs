@@ -16,8 +16,8 @@ namespace BulletHell.Arena
         public const Keys RIGHT = Keys.D;
         public const Keys LEFT = Keys.A;
 
-        public float Speed = 128f;
-        public float VelocityFalloff = 2f;
+        public float Speed = 32f * 15f; // Player width * X per second.
+        public float VelocityFalloff = 12f;
 
         public Player(Game game) : base(game, "Player")
         {
@@ -28,7 +28,7 @@ namespace BulletHell.Arena
         {
             Width = 32;
             Height = 32;
-            Colour = Color.LightSeaGreen;
+            Colour = Color.LightGreen;
         }
 
         public override void Update()
@@ -59,16 +59,24 @@ namespace BulletHell.Arena
             // Scale by speed.
             Vector2 vel = input * Speed;
 
-            // If there is active input...
-            if(input != Vector2.Zero)
+
+            // Set velocity based on individual axis.
+            if (vel.X != 0f)
             {
-                // Set velocity.
-                this.Velocity = vel;
+                this.Velocity.X = vel.X;
             }
             else
             {
-                // Otherwise decrease velocity.
-                this.Velocity = Vector2.Lerp(this.Velocity, Vector2.Zero, Time.deltaTime * VelocityFalloff);
+                this.Velocity.X = Mathf.Lerp(this.Velocity.X, 0f, Time.deltaTime * VelocityFalloff);
+            }
+
+            if (vel.Y != 0f)
+            {
+                this.Velocity.Y = vel.Y;
+            }
+            else
+            {
+                this.Velocity.Y = Mathf.Lerp(this.Velocity.Y, 0f, Time.deltaTime * VelocityFalloff);
             }
         }
     }
