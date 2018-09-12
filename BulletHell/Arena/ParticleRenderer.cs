@@ -18,10 +18,6 @@ namespace BulletHell.Arena
 
         public override void Update(GameTime gameTime)
         {
-            var mp = Input.MouseWorldPosition;
-            Vector2 vel = Random.GetRandomDirection() * 64f;
-            Particles.Add(new Particle(mp.X, mp.Y, vel.X, vel.Y, Color.MediumPurple));
-
             float dt = Time.deltaTime;
             for (int i = 0; i < Particles.Count; i++)
             {

@@ -8,6 +8,7 @@ namespace BulletHell
     public class Main : Game
     {
         public const int EXEC_ORDER_TITLE = 100;
+        public const int EXEC_ORDER_PROJECTILE = 99;
         public const int EXEC_ORDER_PLAYER = 0;
         public const int EXEC_ORDER_PARTICLES = -1;
         public const int EXEC_ORDER_TIME = -99;
