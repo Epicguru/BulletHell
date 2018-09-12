@@ -9,6 +9,7 @@ namespace BulletHell
     {
         public const int EXEC_ORDER_TITLE = 100;
         public const int EXEC_ORDER_PLAYER = 0;
+        public const int EXEC_ORDER_PARTICLES = -1;
         public const int EXEC_ORDER_TIME = -99;
         public const int EXEC_ORDER_INPUT = -100;
 
@@ -41,6 +42,7 @@ namespace BulletHell
             base.Components.Add(new Time(this));
             base.Components.Add(new Player(this));
             base.Components.Add(new Title(this));
+            base.Components.Add(new ParticleRenderer(this));
 
             // Initialize all components.
             base.Initialize();

@@ -46,6 +46,8 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Arena\GameObject.cs" />
+    <Compile Include="Arena\Particle.cs" />
+    <Compile Include="Arena\ParticleRenderer.cs" />
     <Compile Include="Arena\Title.cs" />
     <Compile Include="Camera.cs" />
     <Compile Include="Input.cs" />
@@ -55,6 +57,7 @@
     <Compile Include="Arena\Player.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Random.cs" />
     <Compile Include="StringUtils.cs" />
     <Compile Include="Time.cs" />
   </ItemGroup>
