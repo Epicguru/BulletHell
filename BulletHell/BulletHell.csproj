@@ -45,6 +45,8 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Camera.cs" />
+    <Compile Include="Input.cs" />
     <Compile Include="Log.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="Mathf.cs" />

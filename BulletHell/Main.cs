@@ -11,6 +11,7 @@ namespace BulletHell
         public static Color BackgroundColour = Color.Black;
         public static GraphicsDeviceManager Graphics;
         public static SpriteBatch SpriteBatch;
+        public static Camera Camera;
 
         public Main()
         {
@@ -26,6 +27,7 @@ namespace BulletHell
             // Main class related settings, basic init.
             IsMouseVisible = true;
             Window.Title = "Bullet Hell";
+            Camera = new Camera();
 
             // Add base components here...
             base.Components.Add(new Time(this));
@@ -66,9 +68,12 @@ namespace BulletHell
 
         protected override void Draw(GameTime gameTime)
         {
+            // Update camera matrix.
+            Camera.UpdateMatrix(GraphicsDevice);
+
             GraphicsDevice.Clear(BackgroundColour);
 
-            SpriteBatch.Begin();
+            SpriteBatch.Begin(SpriteSortMode.Deferred, null, null, null, null, null, Camera.GetMatrix());
 
             // Draw all components.
             base.Draw(gameTime);
