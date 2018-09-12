@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using BulletHell.Arena;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
@@ -6,12 +7,14 @@ namespace BulletHell
 {
     public class Main : Game
     {
-        GraphicsDeviceManager graphics;
-        SpriteBatch spriteBatch;
+        public static Texture2D Pixel;
+        public static Color BackgroundColour = Color.Black;
+        public static GraphicsDeviceManager Graphics;
+        public static SpriteBatch SpriteBatch;
 
         public Main()
         {
-            graphics = new GraphicsDeviceManager(this);
+            Graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
         }
 
@@ -26,6 +29,7 @@ namespace BulletHell
 
             // Add base components here...
             base.Components.Add(new Time(this));
+            base.Components.Add(new Player(this));
 
             // Initialize all components.
             base.Initialize();
@@ -40,7 +44,10 @@ namespace BulletHell
             Log.StartTimeLog("Game Load Content");
 
             // Create a new SpriteBatch, which can be used to draw textures.
-            spriteBatch = new SpriteBatch(GraphicsDevice);
+            SpriteBatch = new SpriteBatch(GraphicsDevice);
+
+            // Load pixel texture.
+            Pixel = Content.Load<Texture2D>("Pixel");
 
             // End logging.
             Log.EndTimeLog();
@@ -59,11 +66,14 @@ namespace BulletHell
 
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(BackgroundColour);
 
-            // TODO: Add your drawing code here
+            SpriteBatch.Begin();
 
+            // Draw all components.
             base.Draw(gameTime);
+
+            SpriteBatch.End();
         }
     }
 }
