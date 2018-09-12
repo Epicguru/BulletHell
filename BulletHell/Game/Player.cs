@@ -34,8 +34,8 @@ namespace BulletHell.Arena
 
         public Rectangle GetDrawPos()
         {
-            dest.X = (int)Position.X;
-            dest.Y = (int)Position.Y;
+            dest.X = (int)(Position.X - Width / 2f);
+            dest.Y = (int)(Position.Y - Height / 2f);
             dest.Width = Width;
             dest.Height = Height;
 
