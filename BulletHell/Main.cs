@@ -27,6 +27,7 @@ namespace BulletHell
             // Main class related settings, basic init.
             IsMouseVisible = true;
             Window.Title = "Bullet Hell";
+            Window.AllowUserResizing = true;
             Camera = new Camera();
 
             // Add base components here...
@@ -62,8 +63,39 @@ namespace BulletHell
 
         protected override void Update(GameTime gameTime)
         {
+            // Update screen resolution...
+            UpdateResolution();
+
             // Update all components.
             base.Update(gameTime);
+        }
+
+        private void UpdateResolution()
+        {
+            // Normally, resizing window automatically changes resolution.
+            // But, on windows 10 on my machine, pressing the maximize button does not make this happen, so the resolution is messed up.
+
+            int cw = Window.ClientBounds.Width;
+            int ch = Window.ClientBounds.Height;
+
+            bool update = false;
+
+            if(cw != Graphics.PreferredBackBufferWidth)
+            {
+                Graphics.PreferredBackBufferWidth = cw;
+                update = true;
+            }
+            if(ch != Graphics.PreferredBackBufferHeight)
+            {
+                Graphics.PreferredBackBufferHeight = ch;
+                update = true;
+            }
+
+            if (update)
+            {
+                Graphics.ApplyChanges();
+                Log.Trace("Resized to {0}x{1} pixels.".Form(cw, ch));
+            }
         }
 
         protected override void Draw(GameTime gameTime)
