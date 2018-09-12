@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace BulletHell
 {
@@ -109,8 +107,8 @@ namespace BulletHell
             if (!timers.ContainsKey(name))
             {
                 var watch = new Stopwatch();
-                watch.Start();
                 timers.Add(name, watch);
+                watch.Start();
             }
         }
 
@@ -128,15 +126,15 @@ namespace BulletHell
 
         public static TimeSpan EndTimer(string name)
         {
-
             if (!timers.ContainsKey(name))
             {
-                return TimeSpan.MinValue;
+                return TimeSpan.Zero;
             }
             else
             {
-                var span = timers[name].Elapsed;
-                timers[name].Stop();
+                var timer = timers[name];
+                timer.Stop();
+                var span = timer.Elapsed;
                 timers.Remove(name);
                 return span;
             }
@@ -148,7 +146,7 @@ namespace BulletHell
                 return;
 
             string timerName = TIME_LOG_PREFIX + sectionName.Trim();
-            timeLogs.Add(sectionName);
+            timeLogs.Add(timerName);
 
             StartTimer(timerName);
         }
@@ -156,21 +154,23 @@ namespace BulletHell
         public static TimeSpan EndTimeLog(bool trace = false)
         {
             if (timeLogs.Count == 0)
-                return TimeSpan.MinValue;
+                return TimeSpan.Zero;
 
             string timerName = timeLogs[timeLogs.Count - 1];
+            timeLogs.RemoveAt(timeLogs.Count - 1);
             var span = EndTimer(timerName);
-            string sectionName = timerName.Replace(TIME_LOG_PREFIX, "");
 
+            string sectionName = timerName.Replace(TIME_LOG_PREFIX, "");
+            string text = "Completed '{0}' in {1}ms.".Form(sectionName, span.TotalMilliseconds.ToString("n1"));
             if (trace)
             {
                 // Do trace print.
-                Log.Trace("Completed " + sectionName + " in " + span.TotalMilliseconds + "ms.");
+                Log.Trace(text);
             }
             else
             {
                 // Do debug print.
-                Log.Debug("Completed " + sectionName + " in " + span.TotalMilliseconds + "ms.");
+                Log.Debug(text);
             }
 
             return span;

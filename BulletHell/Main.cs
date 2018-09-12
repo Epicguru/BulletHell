@@ -17,6 +17,10 @@ namespace BulletHell
 
         protected override void Initialize()
         {
+            // Start logging time.
+            Log.StartTimeLog("Game Init");
+
+            // Main class related settings, basic init.
             IsMouseVisible = true;
             Window.Title = "Bullet Hell";
 
@@ -25,14 +29,21 @@ namespace BulletHell
 
             // Initialize all components.
             base.Initialize();
+
+            // End logging.
+            Log.EndTimeLog();
         }
 
         protected override void LoadContent()
         {
+            // Start logging time.
+            Log.StartTimeLog("Game Load Content");
+
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            // TODO: use this.Content to load your game content here
+            // End logging.
+            Log.EndTimeLog();
         }
 
         protected override void UnloadContent()

@@ -1,15 +1,16 @@
 ﻿using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace BulletHell
 {
     public class Time : GameComponent
     {
+        public const float MAX_ELAPSED_TIME = 0.5f;
         public static float deltaTime { get; private set; }
         public static float unscaledDeltaTime { get; private set; }
         public static float timeScale
@@ -24,6 +25,8 @@ namespace BulletHell
             }
         }
         private static float _timeScale;
+        private Stopwatch watch;
+        private bool hasRun;
 
         public Time(Game game) : base(game)
         {
@@ -31,15 +34,44 @@ namespace BulletHell
 
         public override void Initialize()
         {
-            Log.StartTimeLog("time module init");
-
             // Init here.
             timeScale = 1f;
+            watch = new Stopwatch();
+            hasRun = false;
+        }
 
-            // TODO HERE FIXME!
-            Thread.Sleep(5);
+        public override void Update(GameTime gameTime)
+        {
+            // Calculate elapsed time.
+            if (!hasRun)
+            {
+                hasRun = true;
 
-            Log.EndTimeLog();
+                // Make up seconds value, at a fraction of a second.
+                var seconds = 1f / 60f;
+
+                // Set real values.
+                unscaledDeltaTime = (float)seconds;
+                deltaTime = unscaledDeltaTime * timeScale;
+
+                // Restart, ready for next frame.
+                watch.Restart();
+            }
+            else
+            {
+                // Stop measuring time.
+                watch.Stop();
+
+                var seconds = watch.Elapsed.TotalSeconds;
+                seconds = Math.Min(seconds, MAX_ELAPSED_TIME);
+
+                // Set real values.
+                unscaledDeltaTime = (float)seconds;
+                deltaTime = unscaledDeltaTime * timeScale;
+
+                // Restart, ready for next frame.
+                watch.Restart();
+            }
         }
     }
 }
