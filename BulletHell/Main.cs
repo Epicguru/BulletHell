@@ -15,6 +15,7 @@ namespace BulletHell
         public const int EXEC_ORDER_TIME = -99;
         public const int EXEC_ORDER_INPUT = -100;
 
+        public static Player Player;
         public static Texture2D Pixel;
         public static SpriteFont TitleFont;
         public static Color BackgroundColour = Color.Black;
@@ -23,6 +24,9 @@ namespace BulletHell
         public static Camera Camera;
         public static GameBoundaries Bounds;
         public static ProjectileManager Projectiles;
+        public static ParticleManager Particles;
+
+        public static Vector2 CameraOffset { get; private set; } = Vector2.Zero;
 
         public Main()
         {
@@ -44,9 +48,9 @@ namespace BulletHell
             // Add base components here...
             base.Components.Add(new Input(this));
             base.Components.Add(new Time(this));
-            base.Components.Add(new Player(this));
+            base.Components.Add(Player = new Player(this));
             base.Components.Add(new Title(this));
-            base.Components.Add(new ParticleRenderer(this));
+            base.Components.Add(Particles = new ParticleManager(this));
             base.Components.Add(Bounds = new GameBoundaries(this));
             base.Components.Add(Projectiles = new ProjectileManager(this));
 
@@ -87,6 +91,9 @@ namespace BulletHell
 
             // Update all components.
             base.Update(gameTime);
+
+            // Update camera offset.
+            CameraOffset = Vector2.Lerp(CameraOffset, Player.Velocity * 0.2f, 5f * Time.deltaTime);
         }
 
         private void UpdateResolution()
@@ -120,6 +127,7 @@ namespace BulletHell
         protected override void Draw(GameTime gameTime)
         {
             // Update camera matrix.
+            Camera.Position = Vector2.Zero + CameraOffset;
             Camera.UpdateMatrix(GraphicsDevice);
 
             GraphicsDevice.Clear(BackgroundColour);

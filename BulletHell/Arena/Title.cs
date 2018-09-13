@@ -23,7 +23,6 @@ namespace BulletHell.Arena
 
         public override void Update(GameTime gameTime)
         {
-            Position = Main.Camera.ScreenToWorldPosition(new Vector2(Main.Graphics.PreferredBackBufferWidth / 2f, 30f));
             timer += Time.unscaledDeltaTime;
         }
 
@@ -37,6 +36,7 @@ namespace BulletHell.Arena
             float frequency = 6f;
             float rot = Mathf.Sin(timer * frequency * Mathf.RadToDeg) * amplitude * Mathf.DegToRad;
 
+            Position = Main.Camera.ScreenToWorldPosition(new Vector2(Main.Graphics.PreferredBackBufferWidth / 2f, 30f));
             spr.DrawString(Main.TitleFont, str, Position, Colour, rot, Main.TitleFont.MeasureString(str.ToString()) * 0.5f, 1f, SpriteEffects.None, 0f);
         }
     }

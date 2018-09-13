@@ -13,7 +13,7 @@ namespace BulletHell.Projectiles
         public Color Colour = Color.Red;
         public Vector2 Position;
         public Vector2 Velocity;
-        public int Width = 16, Height = 16;
+        public int Width = 8, Height = 8;
 
         public virtual Rectangle Bounds
         {
@@ -29,9 +29,25 @@ namespace BulletHell.Projectiles
         }
         private Rectangle _bounds;
 
+        public CometProjectile(Vector2 pos, Vector2 vel, bool center = true)
+        {
+            this.Position = pos;
+            if (center)
+            {
+                pos.X -= Width * 0.5f;
+                pos.Y -= Height * 0.5f;
+            }
+
+            this.Velocity = vel;
+        }
+
         public void Update()
         {
             Position += Velocity * Time.deltaTime;
+
+            // Spawn a particle.
+            var rv = Random.GetRandomDirection() * Velocity.Length() * 0.25f;
+            Main.Particles.AddParticle(new Particle(Position.X + Width / 2f, Position.Y + Height / 2f, rv.X, rv.Y, Colour, 2f));
         }
 
         public void Draw()

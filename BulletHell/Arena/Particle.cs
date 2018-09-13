@@ -23,13 +23,15 @@ namespace BulletHell.Arena
                 return ColourMap[ColourID];
             }
         }
+        public float Time;
 
-        public Particle(float x, float y, float xv, float yv, Color colour)
+        public Particle(float x, float y, float xv, float yv, Color colour, float time)
         {
             this.X = x;
             this.Y = y;
             this.Xvel = xv;
             this.Yvel = yv;
+            this.Time = time;
 
             if (IDMap.ContainsKey(colour))
             {

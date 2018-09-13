@@ -7,25 +7,32 @@ using System.Threading.Tasks;
 
 namespace BulletHell.Arena
 {
-    public class ParticleRenderer : DrawableGameComponent
+    public class ParticleManager : DrawableGameComponent
     {
-        public List<Particle> Particles = new List<Particle>();
+        private List<Particle> particles = new List<Particle>();
 
-        public ParticleRenderer(Game game) : base(game)
+        public ParticleManager(Game game) : base(game)
         {
             DrawOrder = Main.EXEC_ORDER_PARTICLES;
+        }
+
+        public void AddParticle(Particle p)
+        {
+            particles.Add(p);
         }
 
         public override void Update(GameTime gameTime)
         {
             float dt = Time.deltaTime;
-            for (int i = 0; i < Particles.Count; i++)
+            for (int i = 0; i < particles.Count; i++)
             {
-                var p = Particles[i];
+                var p = particles[i];
                 p.X += p.Xvel * dt;
                 p.Y += p.Yvel * dt;
-                Particles[i] = p;
+                p.Time -= Time.deltaTime;
+                particles[i] = p;
             }
+            particles.RemoveAll(x => x.Time <= 0f);
         }
 
         public override void Draw(GameTime gameTime)
@@ -34,7 +41,7 @@ namespace BulletHell.Arena
             Rectangle dest = new Rectangle();
             dest.Width = size;
             dest.Height = size;
-            foreach (var p in Particles)
+            foreach (var p in particles)
             {
                 dest.X = (int)p.X;
                 dest.Y = (int)p.Y;

@@ -48,9 +48,9 @@
     <Compile Include="Arena\GameBoundaries.cs" />
     <Compile Include="Arena\GameObject.cs" />
     <Compile Include="Arena\Particle.cs" />
-    <Compile Include="Arena\ParticleRenderer.cs" />
+    <Compile Include="Arena\ParticleManager.cs" />
     <Compile Include="Arena\Projectile.cs" />
-    <Compile Include="Arena\ProjectileRenderer.cs" />
+    <Compile Include="Arena\ProjectileManager.cs" />
     <Compile Include="Arena\Title.cs" />
     <Compile Include="Camera.cs" />
     <Compile Include="Input.cs" />
