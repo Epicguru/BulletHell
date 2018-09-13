@@ -33,8 +33,8 @@ namespace BulletHell.Arena
         public override void Initialize()
         {
             // 32 is the player size in pixels, just to make the units more understandable.
-            Width = 32 * 5;
-            Height = 32 * 5;
+            Width = 32 * 30;
+            Height = 32 * 30;
         }
 
         public override void Draw(GameTime gameTime)
