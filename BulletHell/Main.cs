@@ -8,6 +8,7 @@ namespace BulletHell
     public class Main : Game
     {
         public const int EXEC_ORDER_TITLE = 100;
+        public const int EXEC_ORDER_BOUNDS = 99;
         public const int EXEC_ORDER_PROJECTILE = 99;
         public const int EXEC_ORDER_PLAYER = 0;
         public const int EXEC_ORDER_PARTICLES = -1;
@@ -44,6 +45,7 @@ namespace BulletHell
             base.Components.Add(new Player(this));
             base.Components.Add(new Title(this));
             base.Components.Add(new ParticleRenderer(this));
+            base.Components.Add(new GameBoundaries(this));
 
             // Initialize all components.
             base.Initialize();
