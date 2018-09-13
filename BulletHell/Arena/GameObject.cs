@@ -15,15 +15,27 @@ namespace BulletHell.Arena
         public Vector2 Position;
         public Vector2 Velocity;
         public int Width = 16, Height = 16;
+        public bool Centered { get; set; } = false;
 
         public Rectangle Bounds
         {
             get
             {
-                _bounds.X = (int)(Position.X - Width / 2f);
-                _bounds.Y = (int)(Position.Y - Height / 2f);
-                _bounds.Width = Width;
-                _bounds.Height = Height;
+                if (Centered)
+                {
+                    _bounds.X = (int)(Position.X - Width / 2f);
+                    _bounds.Y = (int)(Position.Y - Height / 2f);
+                    _bounds.Width = Width;
+                    _bounds.Height = Height;
+                }
+                else
+                {
+                    _bounds.X = (int)(Position.X);
+                    _bounds.Y = (int)(Position.Y);
+                    _bounds.Width = Width;
+                    _bounds.Height = Height;
+                }
+                
                 return _bounds;
             }
         }
@@ -41,6 +53,9 @@ namespace BulletHell.Arena
 
             // Apply velocity to position.
             ApplyVelocity();
+
+            // Late update.
+            PostVelUpdate();
         }
 
         public sealed override void Draw(GameTime gameTime)
@@ -49,7 +64,15 @@ namespace BulletHell.Arena
             this.Draw(Main.SpriteBatch);            
         }
 
-        public abstract void Update();
+        public virtual void Update()
+        {
+
+        }
+
+        public virtual void PostVelUpdate()
+        {
+
+        }
 
         public virtual void Draw(SpriteBatch spr)
         {

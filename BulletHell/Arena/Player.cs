@@ -79,5 +79,40 @@ namespace BulletHell.Arena
                 this.Velocity.Y = Mathf.Lerp(this.Velocity.Y, 0f, Time.deltaTime * VelocityFalloff);
             }
         }
+
+        public override void PostVelUpdate()
+        {
+            ClampToBounds();
+        }
+
+        private void ClampToBounds()
+        {
+            var b = Bounds;
+            var arena = Main.Bounds.Rect;
+
+            // Left.
+            if(Position.X < arena.X)
+            {
+                Position.X = arena.X;
+            }
+
+            // Right.
+            if (Position.X + b.Width > arena.X + arena.Width)
+            {
+                Position.X = arena.X + arena.Width - b.Width;
+            }
+
+            // Up.
+            if (Position.Y < arena.Y)
+            {
+                Position.Y = arena.Y;
+            }
+
+            // Down.
+            if (Position.Y + b.Height > arena.Y + arena.Height)
+            {
+                Position.Y = arena.Y + arena.Height - b.Height;
+            }
+        }
     }
 }

@@ -21,6 +21,8 @@ namespace BulletHell
         public static GraphicsDeviceManager Graphics;
         public static SpriteBatch SpriteBatch;
         public static Camera Camera;
+        public static GameBoundaries Bounds;
+        public static ProjectileManager Projectiles;
 
         public Main()
         {
@@ -45,7 +47,8 @@ namespace BulletHell
             base.Components.Add(new Player(this));
             base.Components.Add(new Title(this));
             base.Components.Add(new ParticleRenderer(this));
-            base.Components.Add(new GameBoundaries(this));
+            base.Components.Add(Bounds = new GameBoundaries(this));
+            base.Components.Add(Projectiles = new ProjectileManager(this));
 
             // Initialize all components.
             base.Initialize();
