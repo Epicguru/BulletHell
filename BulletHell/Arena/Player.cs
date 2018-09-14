@@ -16,12 +16,32 @@ namespace BulletHell.Arena
         public const Keys RIGHT = Keys.D;
         public const Keys LEFT = Keys.A;
 
+        public float Health { get; private set; } = 100f;
+        public float MaxHealth { get; private set; } = 100f;
+        public float HealthPercentage
+        {
+            get
+            {
+                return Health / MaxHealth;
+            }
+        }
+
         public float Speed = 32f * 15f; // Player width * X per second.
         public float VelocityFalloff = 12f;
 
         public Player(Game game) : base(game, "Player")
         {
             base.DrawOrder = Main.EXEC_ORDER_PLAYER;
+        }
+
+        public void Damage(float damage)
+        {
+            // Don't allow negative damage...
+            if (damage <= 0f)
+                return;
+
+            // Deal damage while clamping to the min and max values.
+            Health = Mathf.Clamp(Health - damage, 0f, MaxHealth);
         }
 
         public override void Initialize()
