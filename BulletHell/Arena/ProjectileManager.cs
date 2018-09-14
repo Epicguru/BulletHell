@@ -9,7 +9,7 @@ namespace BulletHell.Arena
 {
     public class ProjectileManager : DrawableGameComponent
     {
-        public List<IProjectile> Projectiles = new List<IProjectile>();
+        public List<Projectile> Projectiles = new List<Projectile>();
 
         public ProjectileManager(Game g) : base(g)
         {
@@ -18,9 +18,22 @@ namespace BulletHell.Arena
 
         public override void Update(GameTime gameTime)
         {
+            var playerBounds = Main.Player.Bounds;
+
+            Projectiles.RemoveAll(x => x.Destroyed);
             foreach (var p in Projectiles)
             {
+                // Update the position, velocity, damage and stuff.
                 p.Update();
+
+                // Resolve collision with the new position of the projectile.
+                float damage = p.ResolveCollisions(playerBounds);
+
+                // TODO deal damage.
+                if(damage > 0f)
+                {
+                    Log.Warn("Ouch! You were hit!");
+                }
             }
         }
 

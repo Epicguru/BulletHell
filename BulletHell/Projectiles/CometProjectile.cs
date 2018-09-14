@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace BulletHell.Projectiles
 {
-    public class CometProjectile : IProjectile
+    public class CometProjectile : Projectile
     {
         public Color Colour = Color.Red;
         public Vector2 Position;
@@ -39,9 +39,10 @@ namespace BulletHell.Projectiles
             }
 
             this.Velocity = vel;
+            DestroyUponHit = true;
         }
 
-        public void Update()
+        public override void Update()
         {
             Position += Velocity * Time.deltaTime;
 
@@ -50,9 +51,14 @@ namespace BulletHell.Projectiles
             Main.Particles.AddParticle(new Particle(Position.X + Width / 2f, Position.Y + Height / 2f, rv.X, rv.Y, Colour, 2f));
         }
 
-        public void Draw()
+        public override void Draw()
         {
             Main.SpriteBatch.Draw(Main.Pixel, Bounds, Colour);
         }        
+
+        public override Rectangle GetBounds()
+        {
+            return Bounds;
+        }
     }
 }
