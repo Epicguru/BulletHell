@@ -36,8 +36,6 @@ namespace BulletHell.Arena
             // 32 is the player size in pixels, just to make the units more understandable.
             Width = 32 * 30;
             Height = 32 * 30;
-
-            Main.Projectiles.Projectiles.Add(new CometProjectile(new Vector2(Width * 0.5f, Height * -0.5f), new Vector2(-20f, 20f) * 26f));
         }
 
         public override void Draw(GameTime gameTime)

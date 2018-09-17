@@ -27,6 +27,7 @@ namespace BulletHell
         public static GameBoundaries Bounds;
         public static ProjectileManager Projectiles;
         public static ParticleManager Particles;
+        public static CamShake CameraShake;
 
         public static List<UIElement> UIElements = new List<UIElement>();
 
@@ -47,6 +48,7 @@ namespace BulletHell
             IsMouseVisible = true;
             Window.Title = "Bullet Hell";
             Window.AllowUserResizing = true;
+
             Camera = new Camera();
 
             // Add base components here...
@@ -57,6 +59,7 @@ namespace BulletHell
             base.Components.Add(Particles = new ParticleManager(this));
             base.Components.Add(Bounds = new GameBoundaries(this));
             base.Components.Add(Projectiles = new ProjectileManager(this));
+            base.Components.Add(CameraShake = new CamShake(this));
 
             // UI Elements
             UIElements.Add(new HealthBar());
@@ -134,7 +137,7 @@ namespace BulletHell
         protected override void Draw(GameTime gameTime)
         {
             // Update camera matrix.
-            Camera.Position = Vector2.Zero + CameraOffset;
+            Camera.Position = Vector2.Zero + CameraOffset + CameraShake.CameraOffset;
             Camera.UpdateMatrix(GraphicsDevice);
 
             GraphicsDevice.Clear(BackgroundColour);

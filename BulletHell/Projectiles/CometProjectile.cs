@@ -47,7 +47,7 @@ namespace BulletHell.Projectiles
             Position += Velocity * Time.deltaTime;
 
             // Spawn a particle.
-            var rv = Random.GetRandomDirection() * Velocity.Length() * 0.25f;
+            var rv = Random.GetRandomDirection() * Velocity.Length() * 0.05f;
             Main.Particles.AddParticle(new Particle(Position.X + Width / 2f, Position.Y + Height / 2f, rv.X, rv.Y, Colour, 2f));
         }
 

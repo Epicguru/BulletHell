@@ -20,5 +20,11 @@ namespace BulletHell
 
             return new Vector2((float)x, (float)y);
         }
+
+        public static float Range(float a, float b)
+        {
+            var value = rand.NextDouble();
+            return Mathf.Lerp(a, b, (float)value);
+        }
     }
 }
