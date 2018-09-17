@@ -45,6 +45,7 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Arena\CamShake.cs" />
     <Compile Include="Arena\GameBoundaries.cs" />
     <Compile Include="Arena\GameObject.cs" />
     <Compile Include="Arena\Particle.cs" />
