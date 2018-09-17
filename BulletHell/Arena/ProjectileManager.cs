@@ -32,7 +32,7 @@ namespace BulletHell.Arena
                 // TODO deal damage.
                 if(damage > 0f)
                 {
-                    Log.Warn("Ouch! You were hit!");
+                    Log.Warn("Ouch! You were hit for {0} hp!".Form(damage));
                 }
             }
         }
