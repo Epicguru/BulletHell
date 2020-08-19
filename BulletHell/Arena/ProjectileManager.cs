@@ -1,5 +1,5 @@
-﻿using BulletHell.Projectiles;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
+using BulletHell.Projectiles;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +10,7 @@ namespace BulletHell.Arena
 {
     public class ProjectileManager : DrawableGameComponent
     {
-        public List<IProjectile> Projectiles = new List<IProjectile>();
+        public List<Projectile> Projectiles = new List<Projectile>();
         private float timer;
 
         public ProjectileManager(Game g) : base(g)
@@ -20,6 +20,7 @@ namespace BulletHell.Arena
 
         public override void Update(GameTime gameTime)
         {
+            // Test projectile spawning and collision.
             timer += Time.deltaTime;
             if(timer > 0.4f)
             {
@@ -28,10 +29,23 @@ namespace BulletHell.Arena
                 Projectiles.Add(new CometProjectile(pos, vel, true));
                 timer = 0f;
             }
+        
+            var playerBounds = Main.Player.Bounds;
 
+            Projectiles.RemoveAll(x => x.Destroyed);
             foreach (var p in Projectiles)
             {
+                // Update the position, velocity, damage and stuff.
                 p.Update();
+
+                // Resolve collision with the new position of the projectile.
+                float damage = p.ResolveCollisions(playerBounds);
+
+                // TODO deal damage.
+                if(damage > 0f)
+                {
+                    Log.Warn("Ouch! You were hit for {0} hp!".Form(damage));
+                }
             }
         }
 

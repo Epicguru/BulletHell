@@ -48,6 +48,7 @@
     <Compile Include="Arena\CamShake.cs" />
     <Compile Include="Arena\GameBoundaries.cs" />
     <Compile Include="Arena\GameObject.cs" />
+    <Compile Include="Arena\HealthBar.cs" />
     <Compile Include="Arena\Particle.cs" />
     <Compile Include="Arena\ParticleManager.cs" />
     <Compile Include="Arena\Projectile.cs" />
@@ -65,6 +66,7 @@
     <Compile Include="Random.cs" />
     <Compile Include="StringUtils.cs" />
     <Compile Include="Time.cs" />
+    <Compile Include="UIElement.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Framework">

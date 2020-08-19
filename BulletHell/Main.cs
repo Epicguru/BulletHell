@@ -2,13 +2,15 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System.Collections.Generic;
 
 namespace BulletHell
 {
     public class Main : Game
     {
         public const int EXEC_ORDER_TITLE = 100;
-        public const int EXEC_ORDER_BOUNDS = 99;
+        public const int EXEC_ORDER_HEALTH = 99;
+        public const int EXEC_ORDER_BOUNDS = 50;
         public const int EXEC_ORDER_PROJECTILE = 99;
         public const int EXEC_ORDER_PLAYER = 0;
         public const int EXEC_ORDER_PARTICLES = -1;
@@ -26,6 +28,8 @@ namespace BulletHell
         public static ProjectileManager Projectiles;
         public static ParticleManager Particles;
         public static CamShake CameraShake;
+
+        public static List<UIElement> UIElements = new List<UIElement>();
 
         public static Vector2 CameraOffset { get; private set; } = Vector2.Zero;
 
@@ -56,6 +60,9 @@ namespace BulletHell
             base.Components.Add(Bounds = new GameBoundaries(this));
             base.Components.Add(Projectiles = new ProjectileManager(this));
             base.Components.Add(CameraShake = new CamShake(this));
+
+            // UI Elements
+            UIElements.Add(new HealthBar());
 
             // Initialize all components.
             base.Initialize();
@@ -139,6 +146,19 @@ namespace BulletHell
 
             // Draw all components.
             base.Draw(gameTime);
+
+            SpriteBatch.End();
+
+            // Draw UI elements.
+            SpriteBatch.Begin();
+
+            foreach(var ui in UIElements)
+            {
+                if(ui != null)
+                {
+                    ui.DrawUI(SpriteBatch);
+                }
+            }
 
             SpriteBatch.End();
         }
